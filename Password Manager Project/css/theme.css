@@ -1,0 +1,720 @@
+/* ✅ 基本設定 */
+
+:root {
+    --color-bg: #f0f0f0;
+    --color-text: #000000;
+    --color-accent: #007bff;
+    --color-border: #ccc;
+    --color-placeholder: #666;
+    --color-success: #28a745;
+    --color-error: #dc3545;
+    --color-toast: #007bff;
+    --color-toast-text: #ffffff;
+    --color-focus: var(--color-accent);
+}
+
+/* ✅ 主題變體 */
+body.dark-mode {
+    --color-bg: #0f0f0f;
+    --color-text: #a3ffbf;
+    --color-accent: #32cd32;
+    --color-border: #32cd32;
+    --color-placeholder: #096a1b;
+    --color-success: #28a745;
+    --color-error: #dc3545;
+    --color-toast: #32cd32;
+    --color-toast-text: #000000;
+    --color-focus: #32cd32;
+}
+
+body.blood-mode {
+    --color-bg: #1c0a0a;
+    --color-text: #ffb3b3;
+    --color-accent: #ff3b3b;
+    --color-border: #ff3b3b;
+    --color-placeholder: #ff9a9a;
+    --color-success: #f56f6f;
+    --color-error: #ff0000;
+    --color-toast: #ff3b3b;
+    --color-toast-text: #fff0f0;
+    --color-focus: #ff3b3b;
+}
+
+body.desert-mode {
+    --color-bg: #fdf6e3;
+    --color-text: #5c4422;
+    --color-accent: #e7b000;
+    --color-border: #c9a66b;
+    --color-placeholder: #b08968;
+    --color-success: #8db255;
+    --color-error: #d95f3b;
+    --color-toast: #e7b000;
+    --color-toast-text: #fffbe0;
+    --color-focus: #e7b000;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.table,
+.modal-content {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border: none;
+    box-shadow: none;
+    border-radius: 12px;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, border-radius 0.3s;
+}
+
+.card {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content {
+    height: auto;
+    overflow: visible;
+    padding: 0.75rem;
+    transition: height 0.3s ease;
+}
+
+.form-control,
+.form-select,
+.input-small {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    transition: all 0.2s;
+}
+
+.form-control::placeholder,
+.input-small::placeholder {
+    color: var(--color-placeholder);
+    opacity: 1;
+}
+
+.form-control:focus,
+.input-small:focus,
+.input-group:focus-within {
+    border-color: var(--color-focus);
+    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--color-focus) 25%, transparent);
+    border-radius: 6px;
+}
+
+/* ✅ 互動狀態樣式 */
+.is-valid {
+    border-color: var(--color-success);
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.4);
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.4);
+}
+
+/* ✅ 搖晃動畫 */
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-5px);
+    }
+
+    40% {
+        transform: translateX(5px);
+    }
+
+    60% {
+        transform: translateX(-5px);
+    }
+
+    80% {
+        transform: translateX(5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.shake {
+    animation: shake 0.1s ease-in-out 2;
+    will-change: transform;
+}
+
+/* ✅ Toast 通知 */
+.toast {
+    background-color: var(--color-toast);
+    color: var(--color-toast-text);
+}
+
+/* ✅ 主題按鈕 */
+.theme-toggle-btn {
+    width: 160px;
+    text-align: center;
+    padding: 6px 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+    background-color: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.theme-toggle-btn:hover {
+    background-color: var(--color-accent);
+    color: var(--color-toast-text);
+}
+
+/* ✅ 共用 UI 元件過渡 */
+* {
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s, filter 0.3s;
+}
+
+/* ✅ base：主題色（預設） */
+.form-text {
+    color: var(--color-placeholder);
+    transition: color 0.3s;
+}
+
+/* ✅ modifier：根據強度覆蓋顏色 */
+.form-text.weak {
+    color: #dc3545;
+    /* 紅：弱 */
+}
+
+.form-text.medium {
+    color: #ffc107;
+    /* 黃：中 */
+}
+
+.form-text.strong {
+    color: #28a745;
+    /* 綠：強 */
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.form-wrapper h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: var(--color-text);
+    word-break: break-word;
+}
+
+/* ✅ input-group 完整修正 */
+.input-group {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: var(--color-bg);
+    /* ✅ 為了避免白邊露出 */
+}
+
+.input-group .form-control {
+    flex: 1 1 auto;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+.input-group .form-control:focus {
+    outline: none;
+    z-index: 2;
+}
+
+.input-group .input-group-text,
+.input-group .btn {
+    border: none !important;
+    background-color: transparent;
+    box-shadow: none !important;
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+}
+
+.input-group .form-control::placeholder {
+    color: var(--color-placeholder);
+    opacity: 1;
+}
+
+.input-group-text input[type="checkbox"] {
+    margin: 0;
+    transform: scale(1.2);
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
+
+.input-group.fixed-layout {
+    flex-wrap: nowrap !important;
+}
+
+.input-group.fixed-layout .form-control {
+    flex: 1 1 auto;
+    width: 1%;
+}
+
+.input-group.fixed-layout .btn,
+.input-group.fixed-layout .input-group-text {
+    flex: 0 0 auto;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 2px solid var(--color-border);
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+/* ✅ 勾選狀態 */
+input[type="checkbox"]:checked {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+/* ✅ 勾選圖示 */
+input[type="checkbox"]::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    width: 4px;
+    height: 8px;
+    border: solid var(--color-toast-text);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+input[type="checkbox"]:checked::after {
+    opacity: 1;
+}
+
+
+/* ✅ 狀態樣式強化 */
+.input-group:has(.form-control.is-valid) {
+    border: 1px solid var(--color-success) !important;
+    border-radius: 6px;
+    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--color-success) 40%, transparent);
+}
+
+.input-group:has(.form-control.is-invalid) {
+    border: 1px solid var(--color-error) !important;
+    border-radius: 6px;
+    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--color-error) 40%, transparent);
+}
+
+/* ✅ 按鈕與表單樣式 */
+.btn-primary,
+.btn-success,
+.btn-outline-primary,
+.btn-outline-success {
+    background-color: var(--color-accent) !important;
+    border-color: var(--color-accent) !important;
+    color: var(--color-toast-text) !important;
+}
+
+.btn-outline-primary,
+.btn-outline-success {
+    background-color: transparent !important;
+    color: var(--color-accent) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-success:hover {
+    background-color: var(--color-accent) !important;
+    color: var(--color-toast-text) !important;
+}
+
+.btn-primary:hover,
+.btn-success:hover {
+    background-color: color-mix(in srgb, var(--color-accent) 85%, black);
+    border-color: color-mix(in srgb, var(--color-accent) 85%, black);
+}
+
+/* ✅ 導覽與進度條等 UI */
+.nav-tabs .nav-link {
+    color: var(--color-accent);
+    border: none;
+    font-weight: 500;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    color: var(--color-text);
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    border-bottom: 2px solid var(--color-accent);
+}
+
+.link-primary {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.link-primary:hover {
+    color: color-mix(in srgb, var(--color-accent) 80%, black);
+    text-decoration: underline;
+}
+
+.progress {
+    background-color: #e9ecef;
+    border-radius: 4px;
+}
+
+.progress-bar {
+    background-color: var(--color-accent) !important;
+}
+
+button:hover,
+a:hover,
+input:hover {
+    filter: brightness(0.95);
+}
+
+button:active {
+    filter: brightness(0.85);
+}
+
+button:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+body.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg);
+    padding: 2rem 1rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* ✅ 卡片固定最大寬度並加上陰影 */
+.form-wrapper .card {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
+    padding: 2rem;
+}
+
+/* ✅ 補充：強制刷新用 class（不變更樣式但觸發變數應用） */
+.modal.force-redraw .modal-content {
+    background-color: var(--color-bg) !important;
+    color: var(--color-text) !important;
+}
+
+/* ✅ 統一所有 a 標籤，包含 Modal / 隱私政策連結的主題色 */
+a,
+a.link-primary,
+.modal a,
+.modal-content a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+a:hover,
+a.link-primary:hover,
+.modal a:hover,
+.modal-content a:hover {
+    color: color-mix(in srgb, var(--color-accent) 80%, black);
+}
+
+/* ✅ RWD：針對小螢幕做優化 */
+@media (max-width: 576px) {
+    .form-wrapper {
+        padding: 1.25rem !important;
+        margin: 1rem auto;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+    }
+
+    .form-wrapper h2 {
+        font-size: 1.25rem;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .nav-tabs .nav-link {
+        font-size: 0.85rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .form-control,
+    .btn,
+    .theme-toggle-btn {
+        font-size: 0.9rem;
+    }
+
+    .input-group:not(.fixed-layout) {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .input-group:not(.fixed-layout) .form-control,
+    .input-group:not(.fixed-layout) .btn {
+        width: 100%;
+        margin-bottom: 0.25rem;
+    }
+
+    .input-group .btn {
+        border-top: 1px solid var(--color-border);
+    }
+
+    .tab-content {
+        padding: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+}
+
+/* ✅ RWD：針對 login-page 登入/註冊頁小螢幕優化 */
+@media (max-width: 576px) {
+    .form-wrapper {
+        padding: 1rem !important;
+        margin: 1rem auto;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+    }
+
+    .form-wrapper .btn,
+    .form-wrapper .form-control,
+    .form-wrapper .input-group,
+    .form-wrapper .theme-toggle-btn {
+        font-size: 0.9rem;
+    }
+
+    .nav-tabs .nav-link {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+}
+
+/* ✅ RWD：針對主畫面卡片和表格調整寬度與字級 */
+@media (min-width: 768px) {
+    .card {
+        max-width: 100%;
+        padding: 2rem 3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        padding: 1.25rem !important;
+        margin: 1rem auto;
+    }
+
+    .card .btn,
+    .card .form-control,
+    .card .form-select {
+        font-size: 0.9rem;
+    }
+
+    .table thead th,
+    .table tbody td {
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+}
+
+/* ✅ 固定 input-group 排版：checkbox 左、眼睛右 */
+.input-group.fixed-layout {
+    flex-wrap: nowrap !important;
+}
+
+.input-group.fixed-layout .input-group-text {
+    border-right: 0 !important;
+    padding: 0.375rem 0.75rem;
+}
+
+.input-group.fixed-layout .form-control {
+    border-left: 0 !important;
+    border-right: 0 !important;
+}
+
+.input-group.fixed-layout .btn {
+    border-left: 0 !important;
+    padding: 0.375rem 0.75rem;
+}
+
+/* ✅ 共用：表格邊框與動畫 */
+.table {
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    border-color: var(--color-border);
+    color: var(--color-text-body);
+}
+
+/* ✅ hover 效果（根據主題） */
+.table-hover tbody tr:hover {
+    background-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+
+/* ✅ striped 效果 */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: color-mix(in srgb, var(--color-accent) 5%, transparent);
+}
+
+/* 密碼欄統一寬度與隱碼樣式 */
+.pw-cell {
+    white-space: nowrap;
+}
+
+.pw-dot {
+    display: inline-block;
+    width: 100px;
+    /* 固定寬度 */
+    text-align: left;
+    font-family: 'Segoe UI', 'Roboto Mono', 'Noto Sans TC', 'Helvetica Neue', sans-serif;
+    letter-spacing: 2px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+
+/* ✅ 主題：藍白（預設） */
+body.light-mode .table {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.light-mode .table th,
+body.light-mode .table td {
+    color: #000000;
+    border-color: #ccc;
+}
+
+/* ⬇️ 加：thead 顏色與背景 */
+body.light-mode .table thead th {
+    background-color: #f0f8ff;
+    color: #000000;
+}
+
+body.light-mode .table-hover tbody tr:hover {
+    background-color: #f2f9ff;
+}
+
+/* ✅ 主題：暗綠 */
+body.dark-mode .table {
+    background-color: #0f0f0f;
+    color: #a3ffbf;
+}
+
+body.dark-mode .table th,
+body.dark-mode .table td {
+    color: #466f53;
+    border-color: #32cd32;
+}
+
+/* ⬇️ 加：thead 顏色與背景 */
+body.dark-mode .table thead th {
+    background-color: #1c1c1c;
+    color: #a3ffbf;
+}
+
+body.dark-mode .table-hover tbody tr:hover {
+    background-color: rgba(50, 205, 50, 0.08);
+}
+
+/* ✅ 主題：血紅 */
+body.blood-mode .table {
+    background-color: #1c0a0a;
+    color: #ffb3b3;
+}
+
+body.blood-mode .table th,
+body.blood-mode .table td {
+    color: #a53434;
+    border-color: #ff3b3b;
+}
+
+/* ⬇️ 加：thead 顏色與背景 */
+body.blood-mode .table thead th {
+    background-color: #330000;
+    color: #ffb3b3;
+}
+
+body.blood-mode .table-hover tbody tr:hover {
+    background-color: rgba(255, 59, 59, 0.08);
+}
+
+/* ✅ 主題：沙漠 */
+body.desert-mode .table {
+    background-color: #fdf6e3;
+    color: #5c4422;
+}
+
+body.desert-mode .table th,
+body.desert-mode .table td {
+    color: #5c4422;
+    border-color: #c9a66b;
+}
+
+/* ⬇️ 加：thead 顏色與背景 */
+body.desert-mode .table thead th {
+    background-color: #f0e0c0;
+    color: #5c4422;
+}
+
+body.desert-mode .table-hover tbody tr:hover {
+    background-color: rgba(231, 176, 0, 0.08);
+}

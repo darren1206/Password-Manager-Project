@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <script>
+        const savedTheme = localStorage.getItem("theme") || "light";
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.className = savedTheme + "-mode login-page";
+        });
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隱私權政策</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/theme.css">
+
+    <style>
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            padding: 2rem;
+        }
+
+        a {
+            color: var(--color-accent);
+        }
+
+        .btn-outline-light {
+            color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .btn-outline-light:hover {
+            background-color: var(--color-accent);
+            color: var(--color-toast-text);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mb-4">🔐 隱私權政策</h1>
+        <p>本系統重視您的隱私，我們將妥善處理與保護您的個人資料。</p>
+        <ul>
+            <li>我們收集的資訊包含帳號、Email、電話、密碼等基本資料。</li>
+            <li>所有資料僅用於登入與身份驗證，不會提供第三方。</li>
+            <li>您可以隨時請求刪除帳號與相關資料。</li>
+            <li>若有政策更動，我們將於此頁面公告。</li>
+        </ul>
+        <p>若您對本政策有任何疑問，請與我們聯繫。</p>
+        <a href="login.html" class="btn btn-outline-light mt-4">返回登入頁</a>
+    </div>
+</body>
+
+</html>

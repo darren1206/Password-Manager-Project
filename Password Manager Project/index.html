@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>密碼管理器</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/theme.css" />
+</head>
+
+<body>
+    <div class="container py-5">
+        <div class="card p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>🔐 密碼管理器</h2>
+                <div>
+                    <span id="currentUser" class="me-3"></span>
+                    <button id="editNicknameBtn" class="btn btn-sm btn-outline-primary ms-2">✏️ 修改暱稱</button>
+                    <button id="logoutBtn" class="btn btn-outline-danger btn-sm">登出</button>
+                    <button id="themeToggleBtn" class="theme-toggle-btn">🌙 暗綠主題</button>
+                </div>
+            </div>
+
+            <div id="mainSection">
+                <!-- 搜尋與篩選 -->
+                <div class="row g-2 mb-4 align-items-center">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="searchInput" placeholder="🔎 搜尋網站名稱..." />
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="categoryFilter">
+                            <option value="">📁 所有主分類</option>
+                            <option value="社群">社群</option>
+                            <option value="銀行">銀行</option>
+                            <option value="購物">購物</option>
+                            <option value="工作">工作</option>
+                            <option value="遊戲">遊戲</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="sortOption">
+                            <option value="">⬍ 排序方式</option>
+                            <option value="site">網站名稱 A→Z</option>
+                            <option value="category">分類 A→Z</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 text-end">
+                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#addModal">➕
+                            新增密碼</button>
+                    </div>
+                </div>
+
+                <!-- 密碼表格 -->
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped password-table">
+                        <thead class="table-header">
+                            <tr>
+                                <th>🛎️ 服務名稱</th>
+                                <th>👤 帳號</th>
+                                <th>🔑 密碼</th>
+                                <th>📁 主分類</th>
+                                <th>🔖 子分類</th>
+                                <th>⚙️ 操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="passwordTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editNicknameModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">修改暱稱</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="newNickname" class="form-control" placeholder="輸入新暱稱（最多20字）">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="saveNicknameBtn">儲存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ➕ 新增 / 編輯密碼 Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增 / 編輯密碼</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="passwordForm">
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <label class="form-label">服務名稱</label>
+                                <input type="text" id="siteName" class="form-control" maxlength="20"
+                                    placeholder="例：Facebook" data-bs-toggle="tooltip" title="例：Facebook">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">帳號</label>
+                                <input type="text" id="account" class="form-control" maxlength="20"
+                                    placeholder="例：user123" data-bs-toggle="tooltip" title="帳號需為 6～20 字，含英文字母與數字">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">密碼</label>
+                                <input type="password" id="password" class="form-control" maxlength="20"
+                                    data-bs-toggle="tooltip" title="密碼需為 6～20 字，含英文字母與數字">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">主分類</label>
+                                <select id="mainCategory" class="form-select">
+                                    <option value="">請選擇</option>
+                                    <option value="社群">社群</option>
+                                    <option value="銀行">銀行</option>
+                                    <option value="購物">購物</option>
+                                    <option value="工作">工作</option>
+                                    <option value="遊戲">遊戲</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">子分類</label>
+                                <select id="subCategory" class="form-select">
+                                    <option value="">請選擇主分類</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- ⏬ 可展開的進階欄位 -->
+                        <div class="mt-3">
+                            <a href="#" id="toggleAdvanced" class="text-decoration-none">＋ 顯示進階欄位</a>
+                        </div>
+
+                        <div id="advancedFields" class="row g-2 mt-2 d-none">
+                            <div class="col-md-6">
+                                <label class="form-label">電子信箱</label>
+                                <input type="email" id="email" class="form-control" maxlength="50"
+                                    placeholder="例：abc@mail.com" data-bs-toggle="tooltip" title="請輸入有效 Email">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">手機號碼</label>
+                                <input type="tel" id="phone" class="form-control" maxlength="10"
+                                    placeholder="例：0912345678" data-bs-toggle="tooltip" title="格式：09XXXXXXXX">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">第二組密碼</label>
+                                <input type="password" id="subPassword" class="form-control" maxlength="20"
+                                    data-bs-toggle="tooltip" title="例如轉帳密碼、安全碼，可選填">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">使用者代碼 / 銀行 ID</label>
+                                <input type="text" id="userCode" class="form-control" maxlength="50"
+                                    data-bs-toggle="tooltip" title="可輸入自訂識別碼（如：ID123）">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">身分證字號</label>
+                                <input type="text" id="idNumber" class="form-control" maxlength="10"
+                                    placeholder="例：A123456789" data-bs-toggle="tooltip" title="請輸入大寫開頭+9碼數字（共10碼）">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">備註</label>
+                                <textarea id="note" class="form-control" rows="2" maxlength="50"
+                                    placeholder="補充說明，例如遊戲伺服器名稱、使用習慣..."></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button class="btn btn-success" id="saveBtn">💾 儲存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Toast 提示 -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+        <div id="toastBox" class="toast align-items-center text-white bg-success border-0" role="alert"
+            aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMsg">操作成功</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS 引入 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./js/theme.js"></script>
+    <script type="module" src="./js/utils.js"></script>
+    <script type="module" src="./js/index.js"></script>
+</body>
+
+</html>
